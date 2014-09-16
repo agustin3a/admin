@@ -1,4 +1,18 @@
 Rails.application.routes.draw do
+  resources :items
+
+  devise_for :users
+  root "pages#home"
+
+  get 'products', controller: 'items/index', to: 'items#index', as: 'products'
+  get 'services', controller: 'items/index', to: 'items#index', as: 'services'
+  get 'promos', controller: 'items/index', to: 'items#index', as: 'promos'
+  get 'products/new', controller: 'items/new' , to: 'items#new' , as: 'products_new'
+  get 'services/new', controller: 'items/new' , to: 'items#new' , as: 'services_new'
+  get 'promos/new', controller: 'items/new' , to: 'items#new' , as: 'promos_new'
+
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
