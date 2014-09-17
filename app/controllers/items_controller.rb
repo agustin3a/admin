@@ -7,15 +7,15 @@ class ItemsController < ApplicationController
     uri = request.env['PATH_INFO']
     if uri == "/products" 
       @new_path = "products/new"
-      @name = "Products"
+      @name = "Product"
       @items = Item.where("type = 1")
     elsif uri == "/services"
       @new_path = "services/new"
-      @name = "Services"
+      @name = "Service"
       @items = Item.where("type = 2")
     elsif uri == "/promos"
       @new_path = "promos/new"
-      @name = "Promos"
+      @name = "Promo"
       @items = Item.where("type = 3")
     else
       @items = Item.all
@@ -28,12 +28,15 @@ class ItemsController < ApplicationController
     if @item.type == 1 
       @rpath = "/products"
       @epath = products_edit_path(@item)
+      @name = "Product"
     elsif @item.type == 2
       @rpath = "/services"
       @epath = services_edit_path(@item)
+      @name = "Service"
     else
       @rpath = "/promos"
       @epath = promos_edit_path(@item)
+      @name = "Promo"
     end
       
   end

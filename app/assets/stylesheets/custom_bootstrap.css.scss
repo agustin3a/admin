@@ -1,1 +1,45 @@
+$navbar-height:                                        45px;
+
+
+
+$icon-font-path: 'bootstrap/';
+
 @import 'bootstrap';
+
+
+
+@media (min-width: 768px) {
+  .sidebar-nav .navbar .navbar-collapse {
+    padding: 0;
+    max-height: none;
+  }
+  .sidebar-nav .navbar ul {
+    float: none;
+  }
+  .sidebar-nav .navbar ul:not {
+    display: block;
+  }
+  .sidebar-nav .navbar li {
+    float: none;
+    display: block;
+  }
+  .sidebar-nav .navbar li a {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+}
+
+.center {
+     text-align: center;
+}
+
+.navbar-brand {
+     font-weight: bold;
+}
+
+
+body { 
+	padding-top: 70px; 
+	margin-bottom: 60px;
+}
+

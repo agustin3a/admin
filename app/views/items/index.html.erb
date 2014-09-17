@@ -1,38 +1,156 @@
-<h1>Listing 
-<%= @name %>
-</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Price</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @items.each do |item| %>
-      <tr>
-        <td><%= item.name %></td>
-        <td><%= item.price %></td>
-        <% if @name == "Products" %>
-          <td><%= link_to 'Show', products_show_path(item) %></td>
-          <td><%= link_to 'Edit', products_edit_path(item) %></td>
-        <% elsif @name == "Services" %>
-          <td><%= link_to 'Show', services_show_path(item) %></td>
-          <td><%= link_to 'Edit', services_edit_path(item) %></td>
-        <% else %>
-          <td><%= link_to 'Show', promos_show_path(item) %></td>
-          <td><%= link_to 'Edit', promos_edit_path(item) %></td>
-        <% end %>
-        <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+ <% @name %> 
 
 
-<br>
+<div class="row">
+  <div class="col-sm-4">
+    <div class="sidebar-nav">
+      <div class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <span class="visible-xs navbar-brand">Sidebar menu</span>
+        </div>
+        <div class="navbar-collapse collapse sidebar-navbar-collapse">
+          <ul class="nav navbar-nav">
+            <% if @name == "Product" %>
+              <li class="active">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                Products
+              </a>
+              <div id="collapseOne" class="panel-collapse collapse in">
+            <% else %>
+              <li>
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                Products
+              </a>
+              <div id="collapseOne" class="panel-collapse collapse">
+            <% end %>
+               
+                  <ul class="nav nav-pills nav-stacked ">
+       <li><%= link_to  products_path  do %>
+        <span class="glyphicon glyphicon-list"></span> List
+      <% end %>
+      </li>
+      <li><%= link_to  products_new_path  do %>
+        <span class="glyphicon glyphicon-plus"></span> Add
+      <% end %>
+      </li>
+      
+          </ul>
+              </div>
+            </li>
+            <% if @name == "Service" %>
+              <li class="active">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                Services
+              </a>
+                <div id="collapseTwo" class="panel-collapse collapse in">
+            <% else %>
+              <li>
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                Services
+              </a>
+                <div id="collapseTwo" class="panel-collapse collapse">
+            <% end %>
+             
+                  <ul class="nav nav-pills nav-stacked ">
+       <li><%= link_to  services_path  do %>
+        <span class="glyphicon glyphicon-list"></span> List
+      <% end %>
+      </li>
+      <li><%= link_to  services_new_path  do %>
+        <span class="glyphicon glyphicon-plus"></span> Add
+      <% end %>
+      </li>
+      
+          </ul>
+              </div>
+          </li>
+            <% if @name == "Promo" %>
+              <li class="active">
+               <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                Promos
+              </a>
+                <div id="collapseThree" class="panel-collapse collapse in">
+            <% else %>
+              <li>
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                Promos
+              </a>
+                <div id="collapseThree" class="panel-collapse collapse">
+            <% end %>
+             
+                  <ul class="nav nav-pills nav-stacked ">
+       <li><%= link_to  promos_path  do %>
+        <span class="glyphicon glyphicon-list"></span> List
+      <% end %>
+      </li>
+      <li><%= link_to  promos_new_path  do %>
+        <span class="glyphicon glyphicon-plus"></span> Add
+      <% end %>
+      </li>
+      
+          </ul>
+              </div>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-8">
+    <div class="panel panel-default">
+      <div class="panel-heading"><%= @name + "s" %></div>
+        <div class="panel-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @items.each do |item| %>
+            <tr>
+              <td><%= item.name %></td>
+              <td><%= item.price %></td>
+              <% if @name == "Product" %>
+                <td><%= link_to 'Show', products_show_path(item) %></td>
+                <td><%= link_to products_edit_path(item) do %>
+                      <span class="glyphicon glyphicon-edit"></span> Edit
+                    <% end %>
+                </td>
+              <% elsif @name == "Service" %>
+                <td><%= link_to 'Show', services_show_path(item) %></td>
+                <td><%= link_to services_edit_path(item) do%>
+                      <span class="glyphicon glyphicon-edit"></span> Edit
+          <% end %>
+                </td>
+              <% else %>
+                <td><%= link_to 'Show', promos_show_path(item) %></td>
+                <td><%= link_to promos_edit_path(item) do %>
+                      <span class="glyphicon glyphicon-edit"></span> Edit
+                    <% end %>
+                </td>
+              <% end %>
+              <td><%= link_to item, method: :delete, data: { confirm: 'Are you sure?' } do %>
+                   <span class="glyphicon glyphicon-remove"></span> Delete
+          <% end %>
 
-<%= link_to 'New Item', @new_path %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  </div>
+  </div>
+
+
+
