@@ -41,15 +41,15 @@ class ItemsController < ApplicationController
   def new
     uri = request.env['PATH_INFO']
     if uri == "/products/new" 
-      @new_path = "products/new"
+      @rpath = products_path
       @name = "Product"
       @type = 1
     elsif uri == "/services/new"
-      @new_path = "services/new"
+      @rpath = services_path
       @name = "Service"
       @type = 2
     else
-      @new_path = "promos/new"
+      @rpath = promos_path
       @name = "Promo"
       @type = 3
     end
@@ -58,16 +58,36 @@ class ItemsController < ApplicationController
 
   # GET /items/1/edit
   def edit
+    @type = @item.type
+    if @item.type == 1 
+      @rpath = "/products"
+      @spath = products_show_path(@item)
+    elsif @item.type == 2
+      @rpath = "/services"
+      @spath = services_show_path(@item)
+    else
+      @rpath = "/promos"
+      @spath = promos_show_path(@item)
+    end
   end
 
   # POST /items
   # POST /items.json
   def create
     @item = Item.new(item_params)
-
     respond_to do |format|
       if @item.save
-        format.html { redirect_to @item, notice: 'Item was successfully created.' }
+        if @item.type == 1 
+          spath = products_show_path(@item)
+          notice = 'Product was successfully created.'
+        elsif @item.type == 2
+          spath = services_show_path(@item)
+          notice = 'Service was successfully created.'
+        else
+          spath = promos_show_path(@item)
+          notice = 'Promo was successfully created.'
+        end
+        format.html { redirect_to spath, notice: notice }
         format.json { render :show, status: :created, location: @item }
       else
         format.html { render :new }
@@ -81,7 +101,17 @@ class ItemsController < ApplicationController
   def update
     respond_to do |format|
       if @item.update(item_params)
-        format.html { redirect_to @item, notice: 'Item was successfully updated.' }
+         if @item.type == 1 
+          spath = products_show_path(@item)
+          notice = 'Product was successfully updated.'
+        elsif @item.type == 2
+          spath = services_show_path(@item)
+          notice = 'Service was successfully updated.'
+        else
+          spath = promos_show_path(@item)
+          notice = 'Promo was successfully updated.'
+        end
+        format.html { redirect_to spath, notice: notice }
         format.json { render :show, status: :ok, location: @item }
       else
         format.html { render :edit }
@@ -93,9 +123,19 @@ class ItemsController < ApplicationController
   # DELETE /items/1
   # DELETE /items/1.json
   def destroy
+    if @item.type == 1 
+      spath = products_url
+      notice = 'Product was successfully destroyed.'
+    elsif @item.type == 2
+      spath = services_url
+      notice = 'Service was successfully destroyed.'
+    else
+      spath = promos_url
+      notice = 'Promo was successfully destroyed.'
+    end
     @item.destroy
     respond_to do |format|
-      format.html { redirect_to items_url, notice: 'Item was successfully destroyed.' }
+      format.html { redirect_to spath, notice: notice }
       format.json { head :no_content }
     end
   end
