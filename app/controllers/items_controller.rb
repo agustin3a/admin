@@ -4,23 +4,36 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.json
   def index
-    @items = Item.all
     uri = request.env['PATH_INFO']
     if uri == "/products" 
       @new_path = "products/new"
       @name = "Products"
+      @items = Item.where("type = 1")
     elsif uri == "/services"
       @new_path = "services/new"
       @name = "Services"
+      @items = Item.where("type = 2")
     else
       @new_path = "promos/new"
       @name = "Promos"
+      @items = Item.where("type = 3")
     end
   end
 
   # GET /items/1
   # GET /items/1.json
   def show
+    if @item.type == 1 
+      @rpath = "/products"
+      @epath = products_edit_path(@item)
+    elsif @item.type == 2
+      @rpath = "/services"
+      @epath = services_edit_path(@item)
+    else
+      @rpath = "/promos"
+      @epath = promos_edit_path(@item)
+    end
+      
   end
 
 

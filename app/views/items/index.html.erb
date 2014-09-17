@@ -6,11 +6,7 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Description</th>
-      <th>Type</th>
       <th>Price</th>
-      <th>Initial date</th>
-      <th>Expiry date</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -19,18 +15,23 @@
     <% @items.each do |item| %>
       <tr>
         <td><%= item.name %></td>
-        <td><%= item.description %></td>
-        <td><%= item.type %></td>
         <td><%= item.price %></td>
-        <td><%= item.initial_date %></td>
-        <td><%= item.expiry_date %></td>
-        <td><%= link_to 'Show', item %></td>
-        <td><%= link_to 'Edit', edit_item_path(item) %></td>
+        <% if @name == "Products" %>
+          <td><%= link_to 'Show', products_show_path(item) %></td>
+          <td><%= link_to 'Edit', products_edit_path(item) %></td>
+        <% elsif @name == "Services" %>
+          <td><%= link_to 'Show', services_show_path(item) %></td>
+          <td><%= link_to 'Edit', services_edit_path(item) %></td>
+        <% else %>
+          <td><%= link_to 'Show', promos_show_path(item) %></td>
+          <td><%= link_to 'Edit', promos_edit_path(item) %></td>
+        <% end %>
         <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
 
 <br>
 

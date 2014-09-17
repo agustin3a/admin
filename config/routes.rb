@@ -10,7 +10,12 @@ Rails.application.routes.draw do
   get 'products/new', controller: 'items/new' , to: 'items#new' , as: 'products_new'
   get 'services/new', controller: 'items/new' , to: 'items#new' , as: 'services_new'
   get 'promos/new', controller: 'items/new' , to: 'items#new' , as: 'promos_new'
-
+  get 'products/:id/edit'   , controller: 'items/edit' , to: 'items#edit' ,  as: 'products_edit'
+  get 'services/:id/edit'   , controller: 'items/edit' , to: 'items#edit' ,  as: 'services_edit'
+  get 'promos/:id/edit'   , controller: 'items/edit' , to: 'items#edit' ,  as: 'promos_edit'
+  get 'products/:id' , controller: 'items/show' , to: 'items#show' , as: 'products_show'
+  get 'services/:id' , controller: 'items/show' , to: 'items#show' , as: 'services_show'
+  get 'promos/:id' , controller: 'items/show' , to: 'items#show' , as: 'promos_show'
 
 
   # The priority is based upon order of creation: first created -> highest priority.
