@@ -30,5 +30,9 @@
   <%= @item.expiry_date %>
 </p>
 
+<p>
+  <strong> Image: </strong>
+  <%= image_tag @item.image.url(:medium) %>
+</p>
 <%= link_to 'Edit', @epath %> |
 <%= link_to 'Back', @rpath %>
