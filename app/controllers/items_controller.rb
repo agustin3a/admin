@@ -1,42 +1,45 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
 
+
+  def iname (type)
+     if type == 1 
+      name = "Product"
+    elsif type == 2
+      name = "Service"
+    else
+      name = "Promo"
+    end
+    return name
+  end
+
   # GET /items
   # GET /items.json
   def index
     uri = request.env['PATH_INFO']
     if uri == "/products" 
-      @new_path = "products/new"
-      @name = "Product"
-      @items = Item.where("type = 1")
+      type = 1
     elsif uri == "/services"
-      @new_path = "services/new"
-      @name = "Service"
-      @items = Item.where("type = 2")
+      type = 2
     elsif uri == "/promos"
-      @new_path = "promos/new"
-      @name = "Promo"
-      @items = Item.where("type = 3")
+      type = 3
     else
       @items = Item.all
     end
+    @items = Item.where(type: type)
+    @name = iname(type)
   end
 
   # GET /items/1
   # GET /items/1.json
   def show
+    @name = iname(@item.type)
     if @item.type == 1 
-      @rpath = "/products"
       @epath = products_edit_path(@item)
-      @name = "Product"
     elsif @item.type == 2
-      @rpath = "/services"
       @epath = services_edit_path(@item)
-      @name = "Service"
     else
-      @rpath = "/promos"
       @epath = promos_edit_path(@item)
-      @name = "Promo"
     end
       
   end
@@ -46,23 +49,19 @@ class ItemsController < ApplicationController
   def new
     uri = request.env['PATH_INFO']
     if uri == "/products/new" 
-      @rpath = products_path
-      @name = "Product"
       @type = 1
     elsif uri == "/services/new"
-      @rpath = services_path
-      @name = "Service"
       @type = 2
     else
-      @rpath = promos_path
-      @name = "Promo"
       @type = 3
     end
+    @name = iname(@type)
     @item = Item.new
   end
 
   # GET /items/1/edit
   def edit
+    @name = iname(@item.type)
     @type = @item.type
     if @item.type == 1 
       @rpath = "/products"
