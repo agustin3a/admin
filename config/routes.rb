@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   devise_for :users
   root "pages#home"
+  get "about" => "pages#about"
 
   get 'products', controller: 'items/index', to: 'items#index', as: 'products'
   get 'services', controller: 'items/index', to: 'items#index', as: 'services'
