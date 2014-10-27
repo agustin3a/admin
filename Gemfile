@@ -23,6 +23,10 @@ gem 'bootstrap-sass'
 gem 'devise', '~> 3.3.0'
 gem 'paperclip', '~> 3.0'
 gem 'tinymce-rails', '~> 4.1.4'
+gem 'geokit-rails'
+gem "brakeman", :require => false
+gem 'will_paginate', '~> 3.0.5'
+gem 'will_paginate-bootstrap'
 
 group :development, :test do
      gem 'sqlite3'

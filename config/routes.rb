@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
+  resources :places
+
   resources :items
 
   devise_for :users
-  root "pages#home"
+  root "places#index"
   get "about" => "pages#about"
 
   get 'products', controller: 'items/index', to: 'items#index', as: 'products'

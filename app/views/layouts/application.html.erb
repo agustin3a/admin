@@ -4,13 +4,22 @@
   <title>Admin</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.css' rel='stylesheet' />
   <%= csrf_meta_tags %>
 </head>
 <body>
 
 	<%= render 'layouts/navbar' %>
 	<div class="container">
-		<%= yield %>
+		<div class="row">
+  		<div class="col-sm-4">
+    		<%= render 'layouts/sidebar' %>
+   		</div> 
+  		<div class="col-sm-8">
+				<%= yield %>
+			</div>
 	</div>
+  </div>
 </body>
 </html>

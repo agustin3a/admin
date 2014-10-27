@@ -1,0 +1,73 @@
+<style>
+  #map {  width:500px; height:500px; margin-left: auto;
+    margin-right: auto;}
+</style>
+<p id="notice"><%= notice %></p>
+
+<div class="panel panel-default">
+      <div class="panel-heading">
+        Place 
+      <p class="text-right">
+          <%= link_to edit_place_path(@place) do %>
+           <span class="glyphicon glyphicon-edit"></span> Edit |
+          <% end %>
+          <%= link_to @place, method: :delete, data: { confirm: 'Are you sure?' } do %>
+          <span class="glyphicon glyphicon-remove"></span> Delete
+          <% end %>
+      </p>
+      </div>
+
+ <div class="panel-body">
+
+ 
+  <h1> <%= @place.name %> </h1>
+  <hr />
+
+  <h4>Address</h4>
+  <%=@place.address%>
+  <h4>City</h4>
+  <%=@place.city%>
+  <h4>Country</h4>
+  <%=@place.country%>
+  <h4>Map</h4>
+  <hr />
+
+<div class="row">
+	   <div id='map'></div>
+</div>
+
+</div>
+
+<div class="panel-footer">
+</div>
+</div>
+
+
+
+<script>
+L.mapbox.accessToken = 'pk.eyJ1IjoiYWd1c3RpbjNhIiwiYSI6Ik5EU3FnSW8ifQ.c97mqtOcNcKft2TwV-tnEQ';
+var map = L.mapbox.map('map', 'agustin3a.jlleh4fk')
+    .setView([<%= @lat %>, <%= @lng %>], 16);
+
+L.mapbox.featureLayer({
+    // this feature is in the GeoJSON format: see geojson.org
+    // for the full specification
+    type: 'Feature',
+    geometry: {
+        type: 'Point',
+        // coordinates here are in longitude, latitude order because
+        // x, y is the standard for GeoJSON and many formats
+        coordinates: [
+          <%= @lng %>,
+          <%= @lat %>
+        ]
+    },
+    properties: {
+        title: '<%=@place.name%>',
+        description: '<%=@place.address%>',
+        'marker-size': 'large',
+        'marker-color': '#E74C3C',
+        'marker-symbol': 'building'
+    }
+}).addTo(map);
+</script>
