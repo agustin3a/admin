@@ -1,6 +1,11 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
 
+  before_filter :require_login
+
+
+  
+
 
   def iname (type)
      if type == 1 
@@ -154,4 +159,11 @@ class ItemsController < ApplicationController
     def item_params
       params.require(:item).permit(:name, :description, :type, :price, :initial_date, :expiry_date, :image, :link)
     end
+
+    def require_login
+      unless user_signed_in?
+        redirect_to new_user_session_path 
+      end
+    end
+
 end

@@ -27,6 +27,8 @@ gem 'geokit-rails'
 gem "brakeman", :require => false
 gem 'will_paginate', '~> 3.0.5'
 gem 'will_paginate-bootstrap'
+gem "cancan"
+gem "audited-activerecord", "~> 4.0"
 
 group :development, :test do
      gem 'sqlite3'

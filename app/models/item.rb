@@ -5,4 +5,5 @@ class Item < ActiveRecord::Base
 	validates :description, presence: true
 	validates :name, presence: true
 	self.inheritance_column = nil
+	audited
 end

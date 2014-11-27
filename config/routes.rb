@@ -4,8 +4,9 @@ Rails.application.routes.draw do
   resources :items
 
   devise_for :users
-  root "places#index"
+  root "pages#home"
   get "about" => "pages#about"
+  get "accounts", controller: "pages#accounts", to: 'pages#accounts'
 
   get 'products', controller: 'items/index', to: 'items#index', as: 'products'
   get 'services', controller: 'items/index', to: 'items#index', as: 'services'

@@ -3,6 +3,11 @@ include Geokit::Geocoders
 class PlacesController < ApplicationController
   before_action :set_place, only: [:show, :edit, :update, :destroy]
 
+  before_filter :require_login
+
+
+  
+
   # GET /places
   # GET /places.json
   def index
@@ -12,15 +17,7 @@ class PlacesController < ApplicationController
   # GET /places/1
   # GET /places/1.json
   def show
-    @string = @place.address + ", " + @place.city + ", " + @place.country 
-    loc=GoogleGeocoder.geocode(@string);
-    if loc.success
-      puts loc.lat
-      puts loc.lng
-      puts loc.full_address
-    end
-    @lat = loc.lat
-    @lng = loc.lng
+    
   end
 
   # GET /places/new
@@ -80,6 +77,12 @@ class PlacesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def place_params
-      params.require(:place).permit(:name, :address, :city, :country)
+      params.require(:place).permit(:name, :address, :city, :country, :lat, :lon)
+    end
+
+    def require_login
+    unless user_signed_in?
+      redirect_to new_user_session_path 
+    end
     end
 end

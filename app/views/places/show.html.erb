@@ -1,3 +1,8 @@
+    <div class="row">
+      <div class="col-sm-4">
+      <%= render 'layouts/sidebar' %>
+      </div>
+        <div class="col-sm-8">
 <style>
   #map {  width:500px; height:500px; margin-left: auto;
     margin-right: auto;}
@@ -41,13 +46,13 @@
 <div class="panel-footer">
 </div>
 </div>
-
+</style>
 
 
 <script>
 L.mapbox.accessToken = 'pk.eyJ1IjoiYWd1c3RpbjNhIiwiYSI6Ik5EU3FnSW8ifQ.c97mqtOcNcKft2TwV-tnEQ';
 var map = L.mapbox.map('map', 'agustin3a.jlleh4fk')
-    .setView([<%= @lat %>, <%= @lng %>], 16);
+    .setView([<%= @place.lat %>, <%= @place.lon %>], 16);
 
 L.mapbox.featureLayer({
     // this feature is in the GeoJSON format: see geojson.org
@@ -58,8 +63,8 @@ L.mapbox.featureLayer({
         // coordinates here are in longitude, latitude order because
         // x, y is the standard for GeoJSON and many formats
         coordinates: [
-          <%= @lng %>,
-          <%= @lat %>
+          <%= @place.lon %>,
+          <%= @place.lat %>
         ]
     },
     properties: {

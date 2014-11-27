@@ -1,0 +1,22 @@
+
+
+<div class="panel panel-default">
+  <div class="panel-heading">Users</div>
+    <div class="panel-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Email</th>
+            <!--<th colspan="3"></th>-->
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <td><%= user.email %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+</div>
